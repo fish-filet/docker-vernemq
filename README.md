@@ -22,6 +22,23 @@ read how to accept the VerneMQ EULA
 **NOTE 2 (TL:DR)**:
 To use the binary Docker packages (that is, the official packages from Docker Hub) or the VerneMQ binary Linux packages commercially and legally, you need a paid subscription. Accepting the EULA is your promise to do that. To avoid a subscription, you need to clone this repository and build and host your own Dockerfiles/-images.
 
+### Use own binaries 
+
+You can build your own binaries and a VerneMQ Docker image based on own binaries using following commands:
+
+```
+cd build
+
+source build.sh
+
+cd ..
+
+docker build -t vernemq-custom -f Dockerfile.alpine.custom .
+```
+
+Then you can use `vernemq-cusomt` as the Docker image in every further setup.
+`"DOCKER_VERNEMQ_ACCEPT_EULA=yes"` is not needed anymore then.
+
 ### 2. Using [Helm](https://helm.sh/) to deploy on [Kubernetes](https://kubernetes.io/)
 
 First install and configure Helm according to the [documentation](https://helm.sh/docs/using_helm/#quickstart-guide). Then add VerneMQ Helm charts repository:

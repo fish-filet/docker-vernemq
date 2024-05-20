@@ -1,0 +1,24 @@
+# Base image with Erlang/OTP 24
+FROM erlang:25-alpine
+
+# Install necessary build dependencies
+RUN apk update && \
+    apk add --no-cache git make gcc g++ openssl-dev ncurses-dev snappy-dev musl-dev bsd-compat-headers build-base
+
+# Set the working directory
+WORKDIR /vernemq
+
+# Clone the VerneMQ repository
+RUN git clone https://github.com/vernemq/vernemq.git . && \
+    git checkout main
+
+# Build VerneMQ
+RUN make rel
+
+# Copy the built binaries and required libraries to /out directory
+RUN mkdir /out && \
+    cp -r _build/default/rel/vernemq/ /out/vernemq
+
+# Set the entrypoint to a shell
+ENTRYPOINT ["/bin/sh"]
+
